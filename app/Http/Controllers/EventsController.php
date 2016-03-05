@@ -24,7 +24,7 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
-    	$fields = $request->all();
+        $fields = $request->all();
         $event = new Event($fields);
 
         $event->save();
