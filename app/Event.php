@@ -10,4 +10,9 @@ class Event extends Model
     	'title',
     	'happens_at'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo('App\User', 'author');
+    }
 }

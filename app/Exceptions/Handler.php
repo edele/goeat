@@ -20,6 +20,7 @@ class Handler extends ExceptionHandler
         AuthorizationException::class,
         HttpException::class,
         ModelNotFoundException::class,
+        NotFoundHttpException::class,
         ValidationException::class,
     ];
 

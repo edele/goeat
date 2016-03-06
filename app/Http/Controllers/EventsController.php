@@ -9,7 +9,7 @@ use App\Event;
 
 class EventsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $events = Event::all();
         return $events;
@@ -25,9 +25,10 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $fields = $request->all();
-        $event = new Event($fields);
+        $user = $request->user;
 
-        $event->save();
+        $event = new Event($fields);
+        $user->events()->save($event);
 
         return ['id' => $event->id];
     }
@@ -35,9 +36,14 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->all();
-        $event = Event::findOrFail($id);
+        $user = $request->user;
+        $event = $user->events()->find($id);
 
-        $event->update($fields);
+        if (!$event) {
+            return response()->json(['message' => trans('api.noAccess')], 403);
+        } else {
+            $event->update($fields);
+        }
 
         return [];
     }
