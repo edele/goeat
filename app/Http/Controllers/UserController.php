@@ -54,6 +54,11 @@ class UserController extends Controller
         return $this->getToken($user);
     }
 
+    public function account(Request $request)
+    {
+        return $request->user;
+    }
+
     protected function getToken($user)
     {
         try {

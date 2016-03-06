@@ -1,45 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=1100">
+    <title>Go eat</title>
+    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="root"></div>
+<div class="overlay">
+    <div class="overlay__pad"></div>
+    <div class="overlay__content">
+        <div class="splash">
+            <h1 class="h1">Минуточку...</h1>
         </div>
-    </body>
+    </div>
+</div>
+<script src="/js/bundle.min.js"></script>
+</body>
 </html>
