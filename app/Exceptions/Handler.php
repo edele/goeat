@@ -36,15 +36,30 @@ class Handler extends ExceptionHandler
         parent::report($e);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
-     * @return \Illuminate\Http\Response
-     */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        if (app()->environment('local')) {
+            return parent::render($request, $e);
+        }
+
+        $response = ['message' => $this->trans($e->getMessage())];
+        $status = 400;
+
+        if ($e instanceof ModelNotFoundException) {
+            $response['message'] = trans('api.notFound');
+            $status = 404;
+        }
+
+        if ($e instanceof NotFoundHttpException) {
+            $response['message'] = trans('api.notImplemented');
+            $status = 501;
+        }
+
+        if ($this->isHttpException($e))
+        {
+            $status = $e->getStatusCode();
+        }
+
+        return response()->json($response, $status);
     }
 }
