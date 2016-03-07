@@ -1,14 +1,40 @@
-<label class="form-row">
-    <span class="form-label">Эл. почта</span>
-    <input class="form-text w-100" type="text" name="email" placeholder="Эл. почта"/>
-</label>
-<label class="form-row">
-    <span class="form-label">Пароль</span>
-    <input class="form-text w-100" type="password" name="password" placeholder="Пароль"/>
-</label>
-<button class="btn btn--primary login__submit" type="submit">Войти</button>
-<div class="login__error">
-    <span class="js-email-error"></span>
-    <span class="js-password-error"></span>
-    <span class="js-server-error"></span>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <h1>Goeat&nbsp;&mdash; согласуем время и&nbsp;место обеда</h1>
+            <div class="lead">
+                Обед&nbsp;&mdash; это не&nbsp;просто заполнение желудка. Это ещё и&nbsp;повод побыть в&nbsp;хорошей компании, обсудить интересные и&nbsp;важные вещи.
+            </div>
+            <p>
+                Неудобно долбиться в&nbsp;сообщения всем подряд или засорять общий чат в&nbsp;поисках компании для похода на&nbsp;обед.
+            </p>
+            <p>
+                Войдите в&nbsp;<b>Goeat</b> и&nbsp;соберите компанию на&nbsp;обед или просто ждите приглашения.
+            </p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group form-group-lg">
+                <label class="control-label" for='login-email'>Эл. почта</label>
+                <input type="email" id="login-email" class="form-control" name="email" placeholder="Эл. почта"/>
+                <span class="js-email-error help-block"></span>
+            </div>
+
+            <div class="form-group form-group form-group-lg">
+                <label class="control-label" for='login-password'>Пароль</label>
+                <input type="password" id="login-email" class="form-control" name="password" placeholder="Пароль"/>
+                <span class="js-password-error help-block"></span>
+            </div>
+            <p class="js-server-error text-danger"></p>
+            <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+        </div>
+        <div class="col-md-5">
+            <div class="lead" style="padding-top: 18px;">
+                Если ещё не&nbsp;зареганы&nbsp;&mdash; добавим.
+            </div>
+        </div>
+    </div>
 </div>

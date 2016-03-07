@@ -53,7 +53,7 @@ export default app.ItemView.extend({
         const tooltip = this.ui[attr + 'Tooltip']
 
         if (field) {
-            field.removeClass('has-error')
+            field.closest('.form-group').removeClass('has-error')
         }
 
         if (tooltip) {
@@ -66,7 +66,7 @@ export default app.ItemView.extend({
         const tooltip = this.ui[attr + 'Tooltip']
 
         if (field) {
-            field.addClass('has-error')
+            field.closest('.form-group').addClass('has-error')
         }
         if (tooltip) {
             tooltip.html(error)

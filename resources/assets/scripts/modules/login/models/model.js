@@ -16,17 +16,21 @@ export default Model.extend({
     rules: {
         email: function (value) {
             if (!value || !value.length) {
-                return 'Не указана эл.&nbsp;почта.'
+                return 'Йо, укажи почту!'
             }
 
             if (!regexes.email.test(value)) {
-                return 'Неверный формат эл.&nbsp;почты.'
+                return 'Это не похоже на почту :('
             }
         },
 
         password: function (value) {
-            if (!value || !value.length) {
-                return 'Не указан пароль.'
+            if (!value) {
+                return 'Сюда нужно ввести пароль ↑'
+            }
+
+            if (value.length < 6) {
+                return 'Неа, слишком короткий'
             }
         }
     }
