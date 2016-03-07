@@ -12,25 +12,14 @@ import QuestionaryListView from 'modules/questionaries/views/view'
 
 export default app.Application.extend({
     initialize() {
-        this.$body = $('body')
-        this.$main = $('#main')
-        this.$overlay = $('.overlay')
-        this.$content = this.$overlay.find('.overlay__content')
-
-        this.on('start', this.startHandler, this)
-
         events
-            .on('app:start', this.start, this)
-            .on('login:show', code => this.showSplashView(new LoginView()), this)
-            .on('login:hide', this.hideSplashView, this)
-            .on('account', this.showAccountView, this)
+            .on('app:start', this.startHandler, this)
+            .on('login:show', this.showLogin, this)
+            .on('account', this.setAccount, this)
     },
 
     startHandler() {
-        this.initializeSplashRegion()
-        this.initializeAccountRegion()
-        this.hideSplashView()
-
+        this.start()
         app.History.stop()
         app.History.start({ pushState: true })
     },
@@ -40,19 +29,11 @@ export default app.Application.extend({
         this.splashRegion = new app.Region({ el: this.$content })
     },
 
-    showSplashView(view) {
-        if (this.splashRegion === undefined) {
-            this.initializeSplashRegion()
-        }
-
-        this.splashRegion.show(view)
-        this.$overlay.removeClass('is-hidden')
-        this.$body.addClass('overflow-hidden')
+    showLogin() {
+        app.navigate('/')
     },
 
-    hideSplashView() {
-        this.$overlay.addClass('is-hidden')
-        this.$body.removeClass('overflow-hidden')
-        this.splashRegion.empty()
+    setAccount(response) {
+        accountModel.set(response)
     }
 })

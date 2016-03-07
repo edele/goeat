@@ -68,6 +68,7 @@ export default View.extend({
         if (response.token) {
             cookies.set('token', response.token)
             events.trigger('app:start')
+            app.navigate('/events')
         } else {
             this.submitFailHandler(response)
         }

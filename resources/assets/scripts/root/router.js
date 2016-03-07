@@ -7,7 +7,7 @@ export default new app.Router({
     controller: new Controller(),
 
     appRoutes: {
-        'questionaries(/)': 'questionaries',
+        'events(/)': 'events',
         '*path': 'other'
     }
 })

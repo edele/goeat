@@ -2,14 +2,16 @@
 
 import app from 'core/app'
 import Layout from 'layouts/root/views/view'
-import parse from 'utilities/number/parse'
 import events from 'services/events'
-import reqres from 'services/reqres'
 
-import QuestionaryModel from '../modules/questionaries/models/model'
-import QuestionaryView from '../modules/questionaries/views/view'
+import LoginView from 'modules/login/views/view'
 
-const defaultRoute = '/questionaries'
+import EventsView from 'modules/events/views/view'
+import EventsModel from 'modules/events/models/model'
+
+import accountModel from 'modules/account/models/model'
+
+const defaultRoute = '/events'
 
 export default app.Object.extend({
     initialize() {
@@ -19,13 +21,19 @@ export default app.Object.extend({
     },
 
     other() {
-        app.navigate(defaultRoute)
+        if (accountModel.get('id')) {
+            app.navigate(defaultRoute)
+        } else {
+            events.trigger('page', 'login')
+            this.mainRegion.show(new LoginView())
+        }
     },
 
-    questionaries(page) {
-        events.trigger('page', 'questionaries')
-        const model = new QuestionaryModel()
-        const view = new QuestionaryView({ model })
-        this.mainRegion.show(view)
+    events() {
+        events.trigger('page', 'events')
+        const model = new EventsModel()
+        model.fetch().then(() => {
+            this.mainRegion.show(new EventsView({ model }))
+        })
     }
 })
