@@ -67,7 +67,7 @@ export default View.extend({
 
         if (response.token) {
             cookies.set('token', response.token)
-            events.trigger('app:start')
+            events.trigger('app:start').trigger('account', response.user)
             app.navigate('/events')
         } else {
             this.submitFailHandler(response)

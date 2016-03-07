@@ -6,8 +6,6 @@ import app from '../core/app'
 import events from '../services/events'
 import config from '../config'
 import LoginView from 'modules/login/views/view'
-import AccountView from 'modules/account/views/view'
-import accountModel from 'modules/account/models/model'
 import QuestionaryListView from 'modules/questionaries/views/view'
 
 export default app.Application.extend({
@@ -15,7 +13,6 @@ export default app.Application.extend({
         events
             .on('app:start', this.startHandler, this)
             .on('login:show', this.showLogin, this)
-            .on('account', this.setAccount, this)
     },
 
     startHandler() {
@@ -31,9 +28,5 @@ export default app.Application.extend({
 
     showLogin() {
         app.navigate('/')
-    },
-
-    setAccount(response) {
-        accountModel.set(response)
     }
 })

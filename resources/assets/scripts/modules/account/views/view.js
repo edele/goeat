@@ -7,7 +7,7 @@ import cookie from 'js-cookie'
 export default app.ItemView.extend({
     tagName: 'ul',
 
-    className: 'menu header__menu',
+    className: 'nav navbar-nav navbar-right',
 
     template: template,
 
@@ -25,6 +25,8 @@ export default app.ItemView.extend({
 
     logout() {
         cookie.remove('token')
+        this.model.clear()
         app.navigate('/')
+        this.destroy()
     }
 })
