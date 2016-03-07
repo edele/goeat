@@ -1,0 +1,11 @@
+.event-item {
+	margin-bottom: 30px;
+
+	&__precise-time {
+		opacity: .4;
+	}
+
+	&--past {
+		opacity: .3;
+	}
+}

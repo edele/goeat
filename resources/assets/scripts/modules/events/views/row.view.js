@@ -14,7 +14,8 @@ export default app.ItemView.extend({
         const happensAt = this.model.get('happens_at')
         const relativeTime = moment(happensAt).fromNow()
         const preciseTime = moment(happensAt).calendar()
+        const isPast = moment(happensAt).isBefore(new Date)
 
-        return { relativeTime, preciseTime }
+        return { relativeTime, preciseTime, isPast }
     }
 })

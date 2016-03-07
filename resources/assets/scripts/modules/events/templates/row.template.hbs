@@ -1,7 +1,7 @@
-<div style="margin-bottom: 20px;">
+<div class="event-item {{#if isPast}}event-item--past{{/if}}">
     <h3>{{title}}</h3>
     <div>
         {{relativeTime}},
-        <span style="opacity: .4">{{preciseTime}}</span>
+        <span class="event-item__precise-time">{{preciseTime}}</span>
     </div>
 </div>
