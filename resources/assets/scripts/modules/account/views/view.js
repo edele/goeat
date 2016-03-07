@@ -23,7 +23,8 @@ export default app.ItemView.extend({
         change : 'render'
     },
 
-    logout() {
+    logout(e) {
+        e.preventDefault()
         cookie.remove('token')
         this.model.clear()
         app.navigate('/')

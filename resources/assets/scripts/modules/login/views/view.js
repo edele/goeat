@@ -59,6 +59,7 @@ export default View.extend({
             this.model.save()
                 .done(this.submitDoneHandler)
                 .fail(this.submitFailHandler)
+            this.ui.submit.attr('disabled', true).text('Минуточку...')
         }
     },
 
@@ -67,7 +68,7 @@ export default View.extend({
 
         if (response.token) {
             cookies.set('token', response.token)
-            events.trigger('app:start').trigger('account', response.user)
+            events.trigger('account', response.user)
             app.navigate('/events')
         } else {
             this.submitFailHandler(response)
@@ -76,5 +77,6 @@ export default View.extend({
 
     submitFailHandler(response) {
         this.ui.serverError.text('Неверная электронная почта или пароль')
+        this.ui.submit.attr('disabled', false).text('Войти')
     }
 })
