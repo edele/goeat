@@ -6,7 +6,6 @@ import app from '../core/app'
 import events from '../services/events'
 import config from '../config'
 import LoginView from 'modules/login/views/view'
-import QuestionaryListView from 'modules/questionaries/views/view'
 
 export default app.Application.extend({
     initialize() {

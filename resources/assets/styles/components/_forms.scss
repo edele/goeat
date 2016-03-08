@@ -1,3 +1,67 @@
 /********************************
  * Forms
  ********************************/
+
+$primary: #337ab7;
+
+.form-group select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.form {
+    &-segmented {
+        display: inline-block;
+        border-radius: 4px;
+        line-height: 31px;
+        margin-right: 5px;
+
+        &__input {
+            display: none;
+        }
+
+        &__segment {
+            border: solid 1px #ccc;
+            padding: 0 10px;
+            display: inline-block;
+            min-width: 41px;
+            text-align: center;
+            margin-right: -5px;
+            background: #fff;
+            cursor: pointer;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        &__segment:hover {
+            background: #e6e6e6;
+        }
+
+        &__segment:first-of-type {
+            @include border-left-radius(4px);
+        }
+
+        &__segment:last-of-type {
+            @include border-right-radius(4px);
+        }
+
+        &__input:checked + &__segment {
+            border: solid 1px $primary;
+            background: $primary;
+            color: #fff;
+        }
+
+        &__input:checked + &__segment:hover {
+            background: $primary;
+        }
+
+        &__input:checked + &__segment + &__input + &__segment {
+            border-left-color: $primary;
+        }
+
+        img {
+            vertical-align: text-top;
+        }
+    }
+}

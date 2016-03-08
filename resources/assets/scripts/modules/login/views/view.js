@@ -76,7 +76,7 @@ export default View.extend({
     },
 
     submitFailHandler(response) {
-        this.ui.serverError.text('Неверная электронная почта или пароль')
+        this.ui.serverError.text(response.responseJSON.message)
         this.ui.submit.attr('disabled', false).text('Войти')
     }
 })
