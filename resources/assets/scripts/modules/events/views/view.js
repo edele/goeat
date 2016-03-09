@@ -1,8 +1,10 @@
 'use strict'
 
 import app from 'core/app'
+import WelcomeView from 'modules/welcome/views/view'
 import FormView from 'modules/form.event/views/view'
 import FormModel from 'modules/form.event/models/model'
+import account from 'modules/account/models/model'
 import ListView from './list.view.js'
 import RowsCollection from '../collections/rows.collection'
 import template from '../templates/template.hbs'
@@ -12,7 +14,9 @@ export default app.LayoutView.extend({
 
     regions: {
         list: '#events-list',
-        form: '#events-form'
+        form: '#events-form',
+        welcome: '#events-welcome',
+        loading: '.js-loading'
     },
 
     ui: {
@@ -26,12 +30,23 @@ export default app.LayoutView.extend({
     childEvents: {
         'formEventsClose': 'closeForm',
         'formEventsSubmitted': 'formSubmitHandler',
+        'submittedName': 'render'
+    },
+
+    showWelcome() {
+        this.welcomeRegion = this.getRegion('welcome')
+        this.welcomeView = new WelcomeView()
+        this.welcomeRegion.show(this.welcomeView)
     },
 
     onRender() {
-        this.listRegion = this.getRegion('list')
-        this.formRegion = this.getRegion('form')
-        this.createList()
+        if (!account.get('name')) {
+            this.showWelcome()
+        } else {
+            this.listRegion = this.getRegion('list')
+            this.formRegion = this.getRegion('form')
+            this.createList()
+        }
     },
 
     openForm() {

@@ -80,6 +80,16 @@ class UserController extends Controller
         return $user;
     }
 
+    public function update(Request $request)
+    {
+        $fields = $request->all();
+        $user = $request->user;
+
+        $user->update($fields);
+
+        return [];
+    }
+
     protected function registerValidator(array $data)
     {
         return Validator::make($data, [

@@ -32,6 +32,7 @@ export default app.Object.extend({
     events() {
         events.trigger('page', 'events')
         const model = new EventsModel()
+
         model.fetch().then(() => {
             this.mainRegion.show(new EventsView({ model }))
         })
