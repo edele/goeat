@@ -12,7 +12,7 @@ class EventsController extends Controller
 {
     public function index(Request $request)
     {
-        $events = Event::all();
+        $events = Event::with('users', 'author')->get();
         return $events;
     }
 
@@ -37,7 +37,8 @@ class EventsController extends Controller
         $user = $request->user;
 
         $event = new Event($fields);
-        $user->events()->save($event);
+        $user->eventsAsAuthor()->save($event);
+        $user->events()->attach($event->id, ['status' => 'author']);
 
         return ['id' => $event->id];
     }
@@ -53,6 +54,17 @@ class EventsController extends Controller
         } else {
             $event->update($fields);
         }
+
+        return [];
+    }
+
+    public function attend(Request $request, $id)
+    {
+        $fields = $request->all();
+        $user = $request->user;
+        $event = Event::findOrFail($id);
+
+        $user->events()->attach($id, ['status' => 'attends']);
 
         return [];
     }

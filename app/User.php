@@ -24,8 +24,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function events()
+    public function eventsAsAuthor()
     {
         return $this->hasMany('App\Event', 'author');
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany('App\Event');
     }
 }

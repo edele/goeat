@@ -1,7 +1,15 @@
 <div class="event-item {{#if isPast}}event-item--past{{/if}}">
-    <h3>{{title}}</h3>
-    <div>
-        {{relativeTime}},
-        <span class="event-item__precise-time">{{preciseTime}}</span>
-    </div>
+    <h3>
+        {{title}}
+        {{#if isAttendee}}
+            <span class="label label-primary">Иду</span>
+        {{/if}}
+    </h3>
+    <div>{{author.name}} организует</div>
+    <div>{{relativeTime}}, {{preciseTime}}</div>
+    <div>{{ attendees }}</div>
+    {{#unless isAttendee}}
+        <br>
+        <button class="btn btn-default js-attend">Присоединиться</button>
+    {{/unless}}
 </div>
