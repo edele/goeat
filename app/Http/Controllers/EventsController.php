@@ -40,7 +40,7 @@ class EventsController extends Controller
         $user->eventsAsAuthor()->save($event);
         $user->events()->attach($event->id, ['status' => 'author']);
 
-        return ['id' => $event->id];
+        return $event->load('users');
     }
 
     public function update(Request $request, $id)

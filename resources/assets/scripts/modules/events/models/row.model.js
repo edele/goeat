@@ -15,5 +15,5 @@ export default app.Model.extend({
         }
 
         return app.Model.prototype.fetch.call(this, options)
-    },
+    }
 })

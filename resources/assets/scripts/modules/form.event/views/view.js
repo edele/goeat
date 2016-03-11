@@ -112,6 +112,7 @@ export default app.ItemView.extend({
     },
 
     submitSuccessHandler(response) {
+        this.model.set(response)
         this.triggerMethod('formEventsSubmitted')
     },
 

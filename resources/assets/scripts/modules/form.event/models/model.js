@@ -14,7 +14,6 @@ export default app.Model.extend({
 
     initialize() {
         if (!this.get('author')) {
-            console.log(this, account)
             this.set('author', account.toJSON())
         }
     }

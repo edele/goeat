@@ -66,7 +66,6 @@ export default app.LayoutView.extend({
     formSubmitHandler() {
         const event = this.formView.model
         this.listView.collection.add(event)
-        this.listView.render()
         this.closeForm()
     },
 
