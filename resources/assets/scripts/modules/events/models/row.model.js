@@ -10,8 +10,14 @@ export default app.Model.extend({
             url: urls.take('events/attend', this.get('id'))
         }
 
-        if (this.filter) {
-            options.data = this.filter.serialize()
+        return app.Model.prototype.fetch.call(this, options)
+    },
+
+    comment(text) {
+        let options = {
+            type: 'POST',
+            url: urls.take('events/comment', this.get('id')),
+            data: { text }
         }
 
         return app.Model.prototype.fetch.call(this, options)

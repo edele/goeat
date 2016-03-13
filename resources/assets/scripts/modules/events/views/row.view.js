@@ -5,7 +5,8 @@ import template from '../templates/row.template.hbs'
 import RowModel from '../models/model'
 import account from '../../account/models/model'
 import moment from 'moment'
-import $ from 'jquery'
+import _ from 'underscore'
+import urls from 'services/urls'
 import { pluck, some } from 'underscore'
 
 export default app.ItemView.extend({
@@ -14,11 +15,26 @@ export default app.ItemView.extend({
     model: RowModel,
 
     ui: {
-        attend: '.js-attend'
+        attend: '.js-attend',
+        commentText: '.js-comment-text',
+        commentSend: '.js-comment-send',
+        commentServerError: '.js-comment-server-error'
     },
 
     events: {
-        'click @ui.attend': 'attendHandler'
+        'click @ui.attend': 'attendHandler',
+        'click @ui.commentSend': 'submitHandler'
+    },
+
+    submitHandler(e) {
+        const text = this.ui.commentText.val()
+
+        this.model.comment(text)
+            .done(this.commentSubmitDoneHandler)
+            .fail(this.commentSubmitFailHandler)
+
+        this.ui.commentSend.attr('disabled', true).text('Минуточку...')
+        e.preventDefault()
     },
 
     attendHandler() {
@@ -28,6 +44,19 @@ export default app.ItemView.extend({
             this.model.set({ users })
             this.render()
         })
+    },
+
+    commentSubmitDoneHandler(response) {
+        this.model.set(response)
+        this.render()
+    },
+
+    commentSubmitFailHandler(response) {
+        this.ui.commentServerError.text(response.responseJSON.message)
+    },
+
+    initialize() {
+        _.bindAll(this, 'commentSubmitDoneHandler', 'commentSubmitFailHandler')
     },
 
     templateHelpers() {

@@ -8,6 +8,17 @@
     <div>{{author.name}} организует</div>
     <div>{{relativeTime}}, {{preciseTime}}</div>
     <div>{{ attendees }}</div>
+    <div>Комментарии:</div>
+    <ul>
+        {{#each comments}} <li>{{text}}</li> {{/each}}
+    </ul>
+    <form class="form-inline">
+      <div class="form-group">
+        <textarea class="form-control input-sm js-comment-text" placeholder="Комментарий" cols="30" rows="1"></textarea>
+      </div>
+      <button type="submit" class="btn btn-sm btn-default js-comment-send">Оставить комментарий</button>
+      <p class="text-danger js-comment-server-error"></p>
+    </form>
     {{#unless cantAttend}}
         <br>
         <button class="btn btn-default js-attend">Присоединиться</button>
