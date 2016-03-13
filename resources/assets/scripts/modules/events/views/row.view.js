@@ -41,7 +41,9 @@ export default app.ItemView.extend({
 
         const isAttendee = some(this.model.get('users'), user => account.id === user.id)
 
-        return { relativeTime, preciseTime, isPast, attendees, isAttendee }
+        const cantAttend = isAttendee || isPast
+
+        return { relativeTime, preciseTime, isPast, attendees, isAttendee, cantAttend }
     },
 
     buildAttendeesList() {

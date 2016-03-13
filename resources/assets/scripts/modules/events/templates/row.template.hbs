@@ -8,7 +8,7 @@
     <div>{{author.name}} организует</div>
     <div>{{relativeTime}}, {{preciseTime}}</div>
     <div>{{ attendees }}</div>
-    {{#unless isAttendee}}
+    {{#unless cantAttend}}
         <br>
         <button class="btn btn-default js-attend">Присоединиться</button>
     {{/unless}}
