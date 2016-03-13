@@ -37,6 +37,7 @@ export default app.LayoutView.extend({
         this.welcomeRegion = this.getRegion('welcome')
         this.welcomeView = new WelcomeView()
         this.welcomeRegion.show(this.welcomeView)
+        this.ui.add.hide()
     },
 
     onRender() {
