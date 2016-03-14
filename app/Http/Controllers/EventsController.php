@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Comment;
 use App\Event;
 use App\Http\Requests;
+use App\User;
+use Mail;
 use Validator;
 
 class EventsController extends Controller
@@ -65,8 +67,22 @@ class EventsController extends Controller
         $fields = $request->all();
         $user = $request->user;
         $event = Event::findOrFail($id);
+        $author = User::findOrFail($event->author);
 
         $user->events()->attach($id, ['status' => 'attends']);
+
+        Mail::send('emails.attendee',
+            [
+                'name' => $user->name,
+                'time' => $event->happens_at,
+                'event' => $event->title
+            ],
+            function ($m) use ($user, $author, $event) {
+                $m->from($user->email, $user->name);
+                $m->to($author->email, $author->email)
+                ->subject("{$event->title}: {$user->name} присоединился");
+            }
+        );
 
         return [];
     }
