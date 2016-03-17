@@ -83,8 +83,15 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $fields = $request->all();
         $user = $request->user;
+        $fields = $request->all();
+        $validator = $this->updateValidator($fields);
+
+        if ($validator->fails()) {
+          return response()->json([
+            'message' => implode(' ', $validator->messages()->all())
+          ], 422);
+        }
 
         $user->update($fields);
 
@@ -97,6 +104,13 @@ class UserController extends Controller
             'name' => 'max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
+        ]);
+    }
+
+    protected function updateValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'max:255'
         ]);
     }
 }
