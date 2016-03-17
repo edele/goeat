@@ -12,4 +12,10 @@ class Comment extends Model
     {
         $this->belongsTo('App\User', 'author');
     }
+
+    protected $visible = [
+        'author',
+        'id',
+        'text'
+    ];
 }

@@ -11,6 +11,15 @@ class Event extends Model
     	'happens_at'
     ];
 
+    protected $visible = [
+        'author',
+        'comments',
+        'users',
+        'happens_at',
+        'id',
+        'title'
+    ];
+
     public function author()
     {
         return $this->belongsTo('App\User', 'author');
