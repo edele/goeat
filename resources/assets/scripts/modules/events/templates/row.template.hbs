@@ -10,7 +10,7 @@
     <div>{{ attendees }}</div>
     <div>Комментарии:</div>
     <ul>
-        {{#each comments}} <li>{{text}}</li> {{/each}}
+        {{#each comments}} <li>{{{lineBreaks text}}}</li> {{/each}}
     </ul>
     <form class="form-inline">
       <div class="form-group">

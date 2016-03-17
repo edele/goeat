@@ -3,6 +3,7 @@
 import hbs from 'handlebars/runtime'
 import numberFormat from 'utilities/number/format'
 import plural from 'utilities/string/plural'
+import lineBreaks from 'utilities/string/line.breaks'
 import toString from 'utilities/to/string'
 import is from 'utilities/handlebars/is'
 import groupDigits from 'utilities/number/groupDigits'
@@ -32,6 +33,8 @@ hbs.registerHelper({
     },
 
     ext: file => file.split('.').pop(),
+
+    lineBreaks: (text) => lineBreaks(text),
 
     select: function (options) {
         const { list, name, classes, selected } = options.hash
