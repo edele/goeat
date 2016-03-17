@@ -48,6 +48,7 @@ class UserController extends Controller
         }
 
         $user = $this->create($fields);
+        $user->email = $fields['email'];
         $user->password = bcrypt($fields['password']);
         $user->save();
 
