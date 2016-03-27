@@ -8,6 +8,7 @@ export default new app.Router({
 
     appRoutes: {
         'events(/)': 'events',
+        'events/:id': 'event',
         '*path': 'other'
     }
 })

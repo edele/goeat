@@ -9,6 +9,9 @@ import LoginView from 'modules/login/views/view'
 import EventsView from 'modules/events/views/view'
 import EventsModel from 'modules/events/models/model'
 
+import EventView from 'modules/events/views/row.view'
+import EventModel from 'modules/events/models/row.model'
+
 import accountModel from 'modules/account/models/model'
 
 const defaultRoute = '/events'
@@ -24,17 +27,23 @@ export default app.Object.extend({
         if (accountModel.get('id')) {
             app.navigate(defaultRoute)
         } else {
-            events.trigger('page', 'login')
             this.mainRegion.show(new LoginView())
         }
     },
 
     events() {
-        events.trigger('page', 'events')
         const model = new EventsModel()
 
         model.fetch().then(() => {
             this.mainRegion.show(new EventsView({ model }))
+        })
+    },
+
+    event(id) {
+        const model = new EventModel({ id })
+
+        model.fetch().then(() => {
+            this.mainRegion.show(new EventView({ model }))
         })
     }
 })

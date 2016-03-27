@@ -4,6 +4,8 @@ import app from 'core/app'
 import urls from 'services/urls'
 
 export default app.Model.extend({
+    urlRoot: urls.take('events'),
+
     attend() {
         let options = {
             type: 'POST',

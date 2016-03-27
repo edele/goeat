@@ -12,7 +12,7 @@ import { pluck, some } from 'underscore'
 export default app.ItemView.extend({
     template: template,
 
-    className: 'event-item',
+    className: 'container event-item',
 
     model: RowModel,
 

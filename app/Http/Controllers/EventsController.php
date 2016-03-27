@@ -25,7 +25,9 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($id);
 
-        return $event;
+        $event = $event->load('users', 'author', 'comments');
+
+        return $this->attachSingleEventCommensAuthors($event);
     }
 
     public function store(Request $request)
