@@ -102,12 +102,30 @@ class EventsController extends Controller
 
         $user = $request->user;
         $event = Event::findOrFail($id);
+        $eventAuthor = User::findOrFail($event->author);
         $comment = new Comment($fields);
         $comment->author = $user->id;
 
         $event->comments()->save($comment);
 
-        return $event->load('users', 'author', 'comments');
+        if ($eventAuthor->id !== $user->id) {
+            Mail::send('emails.comment',
+                [
+                    'name' => $user->name,
+                    'event' => $event->title,
+                    'comment' => str_replace("\n", '<br>', $comment->text)
+                ],
+                function ($m) use ($user, $eventAuthor, $event) {
+                    $m->from($user->email, $user->name);
+                    $m->to($eventAuthor->email, $eventAuthor->email)
+                    ->subject("{$event->title}: новый комментарий");
+                }
+            );
+        }
+
+        $event = $event->load('users', 'author', 'comments');
+
+        return $this->attachSingleEventCommensAuthors($event);
     }
 
     protected function createValidator(array $data)
@@ -125,18 +143,27 @@ class EventsController extends Controller
         ]);
     }
 
+    public function attachSingleEventCommensAuthors($event, $users=null)
+    {
+        if (!$users) {
+            $users = collect(DB::table('users')->select('name', 'id')->get())->keyBy('id');
+        }
+
+        $event = $event->toArray();
+        foreach ($event['comments'] as $key => $comment) {
+            $event['comments'][$key]['author'] = $users[$comment['author']]->name;
+        }
+
+        return $event;
+    }
+
     public function attachCommentAuthors($events)
     {
         $users = collect(DB::table('users')->select('name', 'id')->get())->keyBy('id');
 
         return $events->map(function($event) use ($users)
         {
-            $event = $event->toArray();
-            foreach ($event['comments'] as $key => $comment) {
-                $event['comments'][$key]['author'] = $users[$comment['author']]->name;
-            }
-
-            return $event;
+            return $this->attachSingleEventCommensAuthors($event, $users);
         });
     }
 }
