@@ -8,6 +8,7 @@ use App\Comment;
 use App\Event;
 use App\Http\Requests;
 use App\User;
+use DB;
 use Mail;
 use Validator;
 
@@ -16,7 +17,8 @@ class EventsController extends Controller
     public function index(Request $request)
     {
         $events = Event::with('users', 'author', 'comments')->get();
-        return $events;
+
+        return $this->attachCommentAuthors($events);
     }
 
     public function show($id)
@@ -121,5 +123,20 @@ class EventsController extends Controller
         return Validator::make($data, [
             'text' => 'required'
         ]);
+    }
+
+    public function attachCommentAuthors($events)
+    {
+        $users = collect(DB::table('users')->select('name', 'id')->get())->keyBy('id');
+
+        return $events->map(function($event) use ($users)
+        {
+            $event = $event->toArray();
+            foreach ($event['comments'] as $key => $comment) {
+                $event['comments'][$key]['author'] = $users[$comment['author']]->name;
+            }
+
+            return $event;
+        });
     }
 }

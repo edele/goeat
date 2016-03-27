@@ -1,0 +1,16 @@
+.comment {
+    @extend %clearfix;
+    margin-bottom: 30px;
+
+    &__author {
+        float: left;
+        width: 90px;
+        padding: 0 10px 0 0px;
+        font-weight: 700;
+    }
+
+    &__text {
+        float: left;
+        width: calc(100% - 90px);
+    }
+}
